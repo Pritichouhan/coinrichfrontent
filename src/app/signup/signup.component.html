@@ -1,0 +1,47 @@
+<div class="container">
+  <h2>Sign Up</h2>
+  <form (ngSubmit)="signUp()" #signupForm="ngForm">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="name" name="name" class="form-control" required minlength="4" maxlength="15"
+        [(ngModel)]="user.username" #name="ngModel">
+      <div *ngIf="name?.invalid && (name?.dirty || name?.touched)" class="alert">
+        <div *ngIf="name.errors?.['required']">
+          Name is required.
+        </div>
+        <div *ngIf="name.errors?.['minlength'] || name.errors?.['maxlength']">
+          Name must be at least 4 characters long and 15 characters short.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="text" id="email" name="email" class="form-control" required [(ngModel)]="user.email" #email="ngModel">
+      <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="alert">
+        <div *ngIf="email.errors?.['required']">
+          Email is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" class="form-control" required minlength="4" maxlength="15"
+        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}" [(ngModel)]="user.password" #password="ngModel">
+      <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="alert">
+        <div *ngIf="password.errors?.['required']">
+          Password is required.
+        </div>
+        <div *ngIf="password.errors?.['minlength'] || password.errors?.['maxlength']">
+          Password must be at least 4 characters long and 15 characters short.
+        </div>
+        <div *ngIf="password.errors?.['pattern']">
+          Password must be alphanumeric
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!signupForm.valid">Login</button>
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+  </form>
+</div>
